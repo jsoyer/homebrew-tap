@@ -7,26 +7,55 @@ A Homebrew tap for C3PO-related tools and utilities.
 To install this tap, run the following command:
 
 ```bash
-brew tap homebrew-c3po
+brew tap jeromesoyer/c3po
 ```
 
 ## Available Formulas
 
 ### Devbox
 
-A tool for managing development environments.
+Portable, Isolated Dev Environments on any Machine.
 
 **Installation:**
 
 ```bash
-brew install devbox
+brew install jeromesoyer/c3po/devbox
 ```
 
 **Usage:**
 
 ```bash
+devbox --version
 devbox --help
 ```
+
+**More info:** [https://www.jetify.com/devbox](https://www.jetify.com/devbox)
+
+---
+
+### Sqlit
+
+A terminal UI for SQL databases - the lazygit of databases.
+
+**Installation:**
+
+```bash
+brew install jeromesoyer/c3po/sqlit
+```
+
+**Usage:**
+
+```bash
+sqlit --help
+```
+
+**More info:** [https://github.com/Maxteabag/sqlit](https://github.com/Maxteabag/sqlit)
+
+---
+
+## Adding More Formulas
+
+To add a new formula to this tap, create a new Ruby file in the `Formula/` directory following the Homebrew formula format.
 
 ## Contributing
 
