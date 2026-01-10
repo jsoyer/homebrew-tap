@@ -19,8 +19,8 @@ class Sqlit < Formula
   end
 
   resource "textual-fastdatatable" do
-    url "https://files.pythonhosted.org/packages/ef/c7/587bd2c98963106578ca8f29f986eda0c619f1bde5eabd9230360d57570d/textual_fastdatatable-0.9.0.tar.gz"
-    sha256 "012dd28b07ad08790232ef07f35c5ba7942f37fd860af3255a0538a992af0515"
+    url "https://files.pythonhosted.org/packages/1e/ec/8cc2204560200dcc80abc432a61eb6f99672049aecfd0860472cfc3f82fe/textual_fastdatatable-0.14.0.tar.gz"
+    sha256 "cb99e208fb96c7eb5cfb7f225a280da950bd8cfb29d685a49071787c80218901"
   end
 
   # Data processing
