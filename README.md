@@ -7,7 +7,7 @@ A Homebrew tap for C3PO-related tools and utilities.
 To install this tap, run the following command:
 
 ```bash
-brew tap jeromesoyer/c3po
+brew tap jsoyer/c3po
 ```
 
 ## Available Formulas
@@ -19,7 +19,7 @@ Portable, Isolated Dev Environments on any Machine.
 **Installation:**
 
 ```bash
-brew install jeromesoyer/c3po/devbox
+brew install jsoyer/c3po/devbox
 ```
 
 **Usage:**
@@ -40,7 +40,7 @@ A terminal UI for SQL databases - the lazygit of databases.
 **Installation:**
 
 ```bash
-brew install jeromesoyer/c3po/sqlit
+brew install jsoyer/c3po/sqlit
 ```
 
 **Usage:**
