@@ -7,7 +7,8 @@ class Sqlit < Formula
   sha256 "df90abb5a648a27d9982c9e2ddc903ab6948c831f2ea3fea58df712c175b5197"
   license "MIT"
 
-  depends_on "python@3.11"
+  depends_on "python@3.12"
+  depends_on "rust" => :build
 
   resource "textual" do
     url "https://files.pythonhosted.org/packages/24/51/57eb835afc9569d32b5979ecbf3bf73f8ece8700ebffab3bac7ff29f92e4/textual-0.47.1.tar.gz"
