@@ -13,8 +13,8 @@ class Sqlit < Formula
   depends_on "rust" => :build
 
   resource "textual" do
-    url "https://files.pythonhosted.org/packages/c3/f6/23b2924defa217a97cabfb3428154e879fba8afe4d9ebbee232a494b1a45/textual-0.80.0.tar.gz"
-    sha256 "dbe5d6d759596652cbb4fc29257064e23a175ec1040c34e5847998694a8d57da"
+    url "https://files.pythonhosted.org/packages/68/f6/58a542fe3f5a31a827eb91b41d3f17ddfa6271bee92c3b0ff3264778dee3/textual-6.10.0.tar.gz"
+    sha256 "87f52a21fe7527e472c1f1cf01faff95673c8378690b0e1b755ec93a0484dae9"
   end
 
   resource "platformdirs" do
