@@ -10,13 +10,13 @@ class Sqlit < Formula
   depends_on "python@3.11"
 
   resource "textual" do
-    url "https://files.pythonhosted.org/packages/6a/91/45bd43b5e8dfbc1e302729c34bb5bf5e97398e13e2ed42ad9ffc3a5f4ec1/textual-1.0.1.tar.gz"
-    sha256 "c4f2c94cc44c26a4ccd5a39805f07cc86de1f3dbfd8fea8e2adc1c5bfe450e25"
+    url "https://files.pythonhosted.org/packages/24/51/57eb835afc9569d32b5979ecbf3bf73f8ece8700ebffab3bac7ff29f92e4/textual-0.47.1.tar.gz"
+    sha256 "4b82e317884bb1092f693f474c319ceb068b5a0b128b121f1aa53a2d48b4b80c"
   end
 
   resource "textual-fastdatatable" do
-    url "https://files.pythonhosted.org/packages/50/e8/62d05e7e71fa1c1f1da3f5abdc5f89c086e0e7b8f5652f48bee27d0cb1bd/textual_fastdatatable-0.14.0.tar.gz"
-    sha256 "e4a6fd6c92f5f59a00c3d5684bbfe53ee17ee77cc5f8f34b8f1c4eff6e0b5e5a"
+    url "https://files.pythonhosted.org/packages/ef/c7/587bd2c98963106578ca8f29f986eda0c619f1bde5eabd9230360d57570d/textual_fastdatatable-0.9.0.tar.gz"
+    sha256 "012dd28b07ad08790232ef07f35c5ba7942f37fd860af3255a0538a992af0515"
   end
 
   resource "pyperclip" do
@@ -30,12 +30,12 @@ class Sqlit < Formula
   end
 
   resource "docker" do
-    url "https://files.pythonhosted.org/packages/27/c5/93d46a9aaa46fa5f39f60acdfcbfda37f60d89d9cc8cc6d39dd1cd991fe9/docker-7.1.0.tar.gz"
+    url "https://files.pythonhosted.org/packages/91/9b/4a2ea29aeba62471211598dac5d96825bb49348fa07e906ea930394a83ce/docker-7.1.0.tar.gz"
     sha256 "ad8c70e6e3f8926cb8a92619b832b4ea5299e2831c14284663184e200546fa6c"
   end
 
   resource "sqlparse" do
-    url "https://files.pythonhosted.org/packages/7b/fa/6a8e16f2bf4a5b7e1c15c8e01fb7d55a68c7c7ca0c8f2e5b1dcc2d824dd8/sqlparse-0.5.3.tar.gz"
+    url "https://files.pythonhosted.org/packages/e5/40/edede8dd6977b0d3da179a342c198ed100dd2aba4be081861ee5911e4da4/sqlparse-0.5.3.tar.gz"
     sha256 "09f67787f56a0b16ecdbde1bfc7f5d9c3371ca683cfeaa8e6ff60b4807ec9272"
   end
 
@@ -85,8 +85,8 @@ class Sqlit < Formula
   end
 
   resource "cryptography" do
-    url "https://files.pythonhosted.org/packages/0e/1c/1762be022a3c3059e653f2649fe1e1254793689abd67b63c5e0e3a1d5f4f/cryptography-44.0.0.tar.gz"
-    sha256 "cd4e7c15ce0377cedfc8f6769e128f03d81ecd4bec56c9bc2a59f7c4a72fc0dc"
+    url "https://files.pythonhosted.org/packages/0d/05/07b55d1fa21ac18c3a8c79f764e2514e6f6a9698f1be44994f5adf0d29db/cryptography-43.0.3.tar.gz"
+    sha256 "315b9001266a492a6ff443b61238f956b214dbec9910a081ba5b6646a055a805"
   end
 
   resource "cffi" do
