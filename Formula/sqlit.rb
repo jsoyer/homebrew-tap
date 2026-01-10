@@ -7,8 +7,6 @@ class Sqlit < Formula
   sha256 "df90abb5a648a27d9982c9e2ddc903ab6948c831f2ea3fea58df712c175b5197"
   license "MIT"
 
-  depends_on "apache-arrow"
-  depends_on "cmake" => :build
   depends_on "python@3.12"
   depends_on "rust" => :build
 
@@ -152,14 +150,10 @@ class Sqlit < Formula
   end
 
   def install
-    # Set environment variables for pyarrow to use system Arrow libraries
-    ENV["PYARROW_WITH_PARQUET"] = "1"
-    ENV["PYARROW_CMAKE_OPTIONS"] = "-DARROW_HOME=#{Formula["apache-arrow"].opt_prefix}"
-
     virtualenv_install_with_resources
 
-    # Install pyarrow separately using system Arrow libraries
-    system libexec/"bin/pip", "install", "--no-deps", "--no-binary", ":all:", "pyarrow"
+    # Install pyarrow using pre-built wheels (much faster and more reliable)
+    system libexec/"bin/pip", "install", "--no-deps", "pyarrow"
   end
 
   test do
