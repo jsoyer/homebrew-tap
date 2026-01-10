@@ -151,8 +151,11 @@ class Sqlit < Formula
 
   def install
     virtualenv_install_with_resources
+  end
 
-    # Install pyarrow using pre-built wheels (much faster and more reliable)
+  def post_install
+    # Install pyarrow using pre-built wheels after main installation
+    # This avoids Homebrew's --no-binary restriction
     system libexec/"bin/pip", "install", "--no-deps", "pyarrow"
   end
 
