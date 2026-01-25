@@ -7,6 +7,11 @@ class Sqlit < Formula
   sha256 "df90abb5a648a27d9982c9e2ddc903ab6948c831f2ea3fea58df712c175b5197"
   license "MIT"
 
+  livecheck do
+    url :stable
+    regex(/sqlit[._-]tui[._-]v?(\d+(?:\.\d+)+)\.t/i)
+  end
+
   depends_on "python@3.12"
   depends_on "rust" => :build
 

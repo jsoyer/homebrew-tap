@@ -6,6 +6,11 @@ class Devbox < Formula
   homepage "https://www.jetify.com/devbox"
   license "Apache-2.0"
 
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   version "0.16.0"
   # When updating the version here, make sure to also update the SHA-256 checksums below
   # using the checksums.txt file provided with the GitHub release.
