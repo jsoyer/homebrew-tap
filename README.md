@@ -128,6 +128,35 @@ Then launch Strawberry from your Applications folder or via Spotlight.
 
 ---
 
+### 📱 libgpod
+
+**Library for Accessing iPod Contents**
+
+<img src="https://img.shields.io/badge/version-0.8.3-blue" alt="Version"> <img src="https://img.shields.io/badge/platform-macOS-lightgrey" alt="Platform">
+
+A shared library to access the contents of an iPod. It supports reading and writing of the iTunesDB and provides bindings for application development.
+
+**Features:**
+- Read and write iPod database (iTunesDB)
+- Support for music, photos, and artwork
+- Cover art handling
+- Smart playlist support
+- Works with classic iPods and older iOS devices
+
+**Installation:**
+
+```bash
+brew install jsoyer/c3po/libgpod
+```
+
+**Usage:**
+
+libgpod is a C library used by applications like Strawberry, gtkpod, and Rhythmbox to sync music with iPods.
+
+**More info:** [gtkpod.org (archived)](https://web.archive.org/web/20210118214105/http://www.gtkpod.org/libgpod/)
+
+---
+
 ## 🚀 Why Use This Tap?
 
 - ✅ **Pre-built Bottles** - Fast installation with pre-compiled binaries (where available)
@@ -142,13 +171,13 @@ Then launch Strawberry from your Applications folder or via Spotlight.
 
 ```bash
 brew update
-brew upgrade jsoyer/c3po/devbox jsoyer/c3po/sqlit jsoyer/c3po/strawberry
+brew upgrade jsoyer/c3po/devbox jsoyer/c3po/sqlit jsoyer/c3po/strawberry jsoyer/c3po/libgpod
 ```
 
 ### Uninstall
 
 ```bash
-brew uninstall devbox sqlit strawberry
+brew uninstall devbox sqlit strawberry libgpod
 brew untap jsoyer/c3po
 ```
 
@@ -159,6 +188,7 @@ brew untap jsoyer/c3po
 | Devbox  | ~29MB | ~2 seconds (bottle) | None |
 | Sqlit   | ~202MB | ~3 minutes | Python 3.12, Rust |
 | Strawberry | ~18.5MB | ~4 minutes (bottle) | Qt6, GStreamer, many audio libs |
+| libgpod | ~1MB | ~2 minutes | glib, libplist, taglib |
 
 ## 🤝 Contributing
 
@@ -212,6 +242,7 @@ This tap is licensed under the MIT License. Individual formulas may have their o
 - **Devbox** by [Jetify](https://www.jetify.com/)
 - **Sqlit** by [Maxteabag](https://github.com/Maxteabag)
 - **Strawberry** by [Jonas Kvinge](https://github.com/strawberrymusicplayer/strawberry)
+- **libgpod** by the [gtkpod team](https://sourceforge.net/projects/gtkpod/)
 - Maintained with ❤️ by [Jerome Soyer](https://github.com/jsoyer)
 
 ---
