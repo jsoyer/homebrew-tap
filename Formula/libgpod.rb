@@ -13,6 +13,11 @@ class Libgpod < Formula
     regex(%r{href=.*?libgpod[._-]v?(\d+(?:\.\d+)+)/?["' >]}i)
   end
 
+  bottle do
+    root_url "https://github.com/jsoyer/homebrew-tap/releases/download/libgpod-0.8.3"
+    sha256 cellar: :any, arm64_tahoe: "e19cfc8019e22275f9b4c79aabd9f3ead98f9a53b1e0d33fab093978fd6a4975"
+  end
+
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "gettext" => :build

@@ -12,6 +12,11 @@ class Sqlit < Formula
     regex(/sqlit[._-]tui[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
+  bottle do
+    root_url "https://github.com/jsoyer/homebrew-tap/releases/download/sqlit-1.2.5"
+    sha256 cellar: :any, arm64_tahoe: "25bb7f7212cbabbe523dc5f951ca57a7717194be6e8183dd4894ba34dac58d08"
+  end
+
   depends_on "python@3.12"
   depends_on "rust" => :build
 

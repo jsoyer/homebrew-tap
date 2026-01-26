@@ -15,6 +15,7 @@ class Strawberry < Formula
   end
 
   bottle do
+    root_url "https://github.com/jsoyer/homebrew-tap/releases/download/strawberry-1.2.17"
     sha256 cellar: :any, arm64_tahoe: "9a6eb1a68d1a8546e97c5a4886aa5df97cf39eb583e81511f4f2799d90975a13"
   end
 
