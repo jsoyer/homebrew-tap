@@ -12,7 +12,7 @@ Add this tap to your Homebrew:
 brew tap jsoyer/tap
 ```
 
-## 🛠️ Available Formulas
+## 🛠️ Available Packages
 
 ### 📦 Devbox
 
@@ -87,7 +87,7 @@ sqlit --help                       # See all options
 
 **Cross-platform Music Player with iPod and Discord Support**
 
-<img src="https://img.shields.io/badge/version-1.2.17-blue" alt="Version"> <img src="https://img.shields.io/badge/bottle-available-green" alt="Bottle Available"> <img src="https://img.shields.io/badge/platform-macOS-lightgrey" alt="Platform">
+<img src="https://img.shields.io/badge/version-1.2.17-blue" alt="Version"> <img src="https://img.shields.io/badge/cask-available-green" alt="Cask Available"> <img src="https://img.shields.io/badge/bottle-available-green" alt="Bottle Available"> <img src="https://img.shields.io/badge/platform-macOS%20ARM64-lightgrey" alt="Platform">
 
 Strawberry is a music player and music collection organizer. It is a fork of Clementine released in 2018 aimed at music collectors and audiophiles.
 
@@ -100,13 +100,21 @@ Strawberry is a music player and music collection organizer. It is a fork of Cle
 - Native desktop notifications
 - Visualizations from projectM
 - Lyrics from multiple sources
-- iPod, MTP and mass storage USB device support
+- iPod, MTP and mass storage USB device support (via libgpod)
 - Scrobbler supporting Last.fm, Libre.fm and ListenBrainz
 - Discord Rich Presence support
 - Subsonic/Airsonic/Navidrome/Gonic streaming support
 - Tidal and Qobuz streaming support
 
 **Installation:**
+
+**Option 1: Cask (Recommended)** - Fast installation with pre-built DMG:
+
+```bash
+brew install --cask jsoyer/tap/strawberry-music-player
+```
+
+**Option 2: Formula** - Build from source or use bottle:
 
 ```bash
 brew install jsoyer/tap/strawberry-music-player
@@ -117,9 +125,9 @@ brew install jsoyer/tap/strawberry-music-player
 After installation, add these environment variables to your shell profile for full GStreamer support:
 
 ```bash
-export GIO_EXTRA_MODULES="/opt/homebrew/lib/gio/modules"
-export GST_PLUGIN_SCANNER="/opt/homebrew/libexec/gstreamer-1.0/gst-plugin-scanner"
-export GST_PLUGIN_PATH="/opt/homebrew/lib/gstreamer-1.0"
+export GIO_EXTRA_MODULES="$(brew --prefix)/lib/gio/modules"
+export GST_PLUGIN_SCANNER="$(brew --prefix)/libexec/gstreamer-1.0/gst-plugin-scanner"
+export GST_PLUGIN_PATH="$(brew --prefix)/lib/gstreamer-1.0"
 ```
 
 Then launch Strawberry from your Applications folder or via Spotlight.
@@ -159,11 +167,12 @@ libgpod is a C library used by applications like Strawberry, gtkpod, and Rhythmb
 
 ## 🚀 Why Use This Tap?
 
-- ✅ **Pre-built Bottles** - Fast installation with pre-compiled binaries (where available)
+- ✅ **Pre-built Bottles & Casks** - Fast installation with pre-compiled binaries
 - 🔄 **Always Updated** - Latest stable versions
 - 📝 **Well Documented** - Clear instructions and examples
 - 🧪 **Tested** - All formulas are tested before release
 - 🛡️ **Maintained** - Regular updates and bug fixes
+- 🎵 **iPod Support** - Strawberry includes libgpod for iPod sync (not available in official Homebrew)
 
 ## 🔧 Advanced Usage
 
@@ -183,12 +192,13 @@ brew untap jsoyer/tap
 
 ## 📊 Installation Stats
 
-| Formula | Size | Install Time | Dependencies |
-|---------|------|--------------|--------------|
-| Devbox  | ~29MB | ~2 seconds (bottle) | None |
-| Sqlit   | ~202MB | ~3 minutes (bottle) | Python 3.12, Rust |
-| Strawberry Music Player | ~18.5MB | ~4 minutes (bottle) | Qt6, GStreamer, many audio libs |
-| libgpod | ~1MB | ~2 minutes (bottle) | glib, libplist, taglib |
+| Package | Type | Size | Install Time | Dependencies |
+|---------|------|------|--------------|--------------|
+| Devbox  | Formula | ~29MB | ~2 seconds (bottle) | None |
+| Sqlit   | Formula | ~202MB | ~3 minutes (bottle) | Python 3.12, Rust |
+| Strawberry Music Player | Cask | ~10MB | ~5 seconds | None (standalone DMG) |
+| Strawberry Music Player | Formula | ~18.5MB | ~7 minutes (bottle) | Qt6, GStreamer, libgpod |
+| libgpod | Formula | ~1MB | ~2 minutes (bottle) | glib, libplist, taglib |
 
 ## 🤝 Contributing
 
