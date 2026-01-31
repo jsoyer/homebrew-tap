@@ -43,6 +43,27 @@ check_prerequisites() {
     fi
 }
 
+# Create symlink for Qt binaries with hardcoded rpaths
+setup_opt_symlink() {
+    local target="/opt/strawberry_macos_arm64_release"
+
+    if [[ -L "$target" ]] && [[ "$(readlink "$target")" == "$DEPS_DIR" ]]; then
+        log_info "Symlink already exists: $target -> $DEPS_DIR"
+        return
+    fi
+
+    log_info "Creating symlink: $target -> $DEPS_DIR"
+    log_warn "This requires sudo access (Qt binaries have hardcoded rpaths)"
+
+    sudo mkdir -p /opt
+    sudo ln -sfn "$DEPS_DIR" "$target"
+
+    if [[ ! -L "$target" ]]; then
+        log_error "Failed to create symlink. Please run manually:
+  sudo mkdir -p /opt && sudo ln -sfn $DEPS_DIR $target"
+    fi
+}
+
 # Download pre-built dependencies from strawberry-macos-dependencies
 download_dependencies() {
     log_info "Downloading pre-built ARM64 dependencies..."
@@ -62,10 +83,17 @@ download_dependencies() {
     curl -L -o deps.tar.xz "$DEPS_URL"
 
     log_info "Extracting dependencies..."
-    tar -xf deps.tar.xz -C "$DEPS_DIR" --strip-components=1
+    # Tarball structure is opt/strawberry_macos_arm64_release/... so strip 2 components
+    tar -xf deps.tar.xz -C "$DEPS_DIR" --strip-components=2
     rm deps.tar.xz
 
     log_info "Dependencies extracted to $DEPS_DIR"
+
+    # Fix hardcoded paths in pkg-config and cmake files
+    log_info "Fixing hardcoded paths in configuration files..."
+    find "$DEPS_DIR" -type f \( -name "*.pc" -o -name "*.cmake" \) -exec grep -l "/opt/strawberry" {} \; 2>/dev/null | while read f; do
+        sed -i '' "s|/opt/strawberry_macos_arm64_release|$DEPS_DIR|g" "$f"
+    done
 }
 
 # Download Strawberry source code
@@ -103,6 +131,14 @@ build_libgpod() {
 
     cd "libgpod-$LIBGPOD_VERSION"
 
+    # Patch for glib 2.68+ compatibility: remove local g_int64_equal/g_int64_hash
+    # These functions now exist in glib and cause conflicts
+    log_info "Patching libgpod for modern glib compatibility..."
+    sed -i '' 's/^static gboolean g_int64_equal/static gboolean _libgpod_int64_equal/' src/itdb_itunesdb.c
+    sed -i '' 's/^static guint g_int64_hash/static guint _libgpod_int64_hash/' src/itdb_itunesdb.c
+    sed -i '' 's/g_int64_equal,/_libgpod_int64_equal,/g' src/itdb_itunesdb.c
+    sed -i '' 's/g_int64_hash,/_libgpod_int64_hash,/g' src/itdb_itunesdb.c
+
     # Create libplist.pc compatibility wrapper
     mkdir -p pkgconfig
     cat > pkgconfig/libplist.pc << EOF
@@ -119,8 +155,12 @@ Cflags: -I\${includedir}
 EOF
 
     export PKG_CONFIG_PATH="$(pwd)/pkgconfig:$DEPS_DIR/lib/pkgconfig"
-    export CFLAGS="-I$DEPS_DIR/include"
+    # libgpod uses implicit function declarations (dup, unlink, sleep) without including unistd.h
+    # Allow these for compatibility with the old codebase
+    # Include paths for glib and other dependencies (pkg-config files have wrong prefix)
+    export CFLAGS="-I$DEPS_DIR/include -I$DEPS_DIR/include/glib-2.0 -I$DEPS_DIR/lib/glib-2.0/include -I$DEPS_DIR/include/libxml2 -I$DEPS_DIR/include/gdk-pixbuf-2.0 -I$DEPS_DIR/include/libpng16 -Wno-error=implicit-function-declaration -Wno-implicit-function-declaration"
     export LDFLAGS="-L$DEPS_DIR/lib"
+    export CPPFLAGS="$CFLAGS"
 
     autoreconf -fiv
     ./configure \
@@ -132,8 +172,28 @@ EOF
         --disable-udev \
         --without-hal
 
-    make -j$(sysctl -n hw.ncpu)
-    make install
+    # Only build the src directory (skip docs, tools, bindings that may fail)
+    make -C src -j$(sysctl -n hw.ncpu)
+    make -C src install
+
+    # Install headers manually
+    mkdir -p "$DEPS_DIR/include/gpod-1.0/gpod"
+    cp src/*.h "$DEPS_DIR/include/gpod-1.0/gpod/"
+
+    # Install pkg-config file
+    mkdir -p "$DEPS_DIR/lib/pkgconfig"
+    cat > "$DEPS_DIR/lib/pkgconfig/libgpod-1.0.pc" << PKGEOF
+prefix=$DEPS_DIR
+exec_prefix=\${prefix}
+libdir=\${prefix}/lib
+includedir=\${prefix}/include/gpod-1.0
+
+Name: libgpod
+Description: A library to access iPod content
+Version: $LIBGPOD_VERSION
+Libs: -L\${libdir} -lgpod
+Cflags: -I\${includedir}
+PKGEOF
 
     log_info "libgpod installed to $DEPS_DIR"
 }
@@ -144,14 +204,16 @@ build_strawberry() {
 
     cd "$SOURCE_DIR"
 
-    # Set up environment
-    export PKG_CONFIG_PATH="$DEPS_DIR/lib/pkgconfig"
+    # Set up environment - use system pkg-config, not the bundled one
+    export PKG_CONFIG_PATH="$DEPS_DIR/lib/pkgconfig:$DEPS_DIR/share/pkgconfig"
+    export PKG_CONFIG=$(which pkg-config)
     export PATH="$DEPS_DIR/bin:$PATH"
 
     # CMake arguments
     CMAKE_ARGS=(
         -DCMAKE_BUILD_TYPE=Release
         -DCMAKE_PREFIX_PATH="$DEPS_DIR"
+        -DPKG_CONFIG_EXECUTABLE="$PKG_CONFIG"
         -DBUILD_WITH_QT6=ON
         -DENABLE_BUNDLE=ON
         -DCREATE_DMG=ON
@@ -269,6 +331,7 @@ main() {
 
     check_prerequisites
     download_dependencies
+    setup_opt_symlink
     download_strawberry
     build_libgpod
     build_strawberry

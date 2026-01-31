@@ -3,7 +3,7 @@
 
 cask "strawberry-music-player" do
   version "1.2.17"
-  sha256 "9e61574e310f439c00391d70752d4d2b0f4f107109e49a9b8c88de614f681ce1"
+  sha256 "8d0fa83172fdb2c45be9f3d04eca0d795ba7ce03c0199d4d4830ee140e5897b1"
 
   url "https://github.com/jsoyer/homebrew-tap/releases/download/strawberry-music-player-#{version}/Strawberry-Music-Player-#{version}-arm64.dmg"
   name "Strawberry Music Player"
